@@ -1,0 +1,97 @@
+.headertop {
+    display: flex;
+    justify-content: space-between;
+    font-family: sans-serif;
+    align-items: center;
+    font-size: 12px !important;
+    margin: 0;
+}
+
+.headeroptions {
+    display: flex;
+    gap: 12px;
+
+    h1 {
+        font-size: 12px !important;
+        font-family: sans-serif;
+        margin: 0;
+        cursor: pointer;
+
+    }
+}
+
+.headerUser {
+    display: flex;
+    gap: 12px;
+    font-size: 10px !important;
+    font-family: sans-serif;
+
+    h1 {
+        font-size: 12px !important;
+        font-family: sans-serif;
+        margin: 0;
+        cursor: pointer;
+
+    }
+
+}
+
+.smallScreen{
+    visibility: hidden;
+    display: none;
+}
+
+ .headeroptionsSmallScreen {
+        visibility: hidden;
+        display: none;
+        position: absolute;
+        z-index: 999;
+        background-color: white;
+        flex-direction: column;
+        gap: 12px;
+        right: 0;
+
+        h1 {
+            font-size: 12px !important;
+            font-family: sans-serif;
+            margin: 0;
+            cursor: pointer;
+
+        }
+}
+
+@media screen and (max-width:600px) {
+    .headerUser {
+        visibility: hidden;
+    }
+
+    .headeroptions {
+        visibility: hidden;
+    }
+    .smallScreen{
+        visibility: visible;
+        cursor: pointer;
+        display: block;
+    }
+    
+    .headeroptionsSmallScreen {
+        visibility: visible;
+        display: flex;
+        position: absolute;
+        z-index: 999;
+        background-color: rgba(239, 180, 63, 0.824);
+        flex-direction: column;
+        gap: 12px;
+        right: 0;
+
+        h1 {
+            font-size: 12px !important;
+            font-family: sans-serif;
+            margin: 0;
+            cursor: pointer;
+
+        }
+}
+}
+
+
