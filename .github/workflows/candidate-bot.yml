@@ -1,0 +1,131 @@
+name: Candidate Bot – Issue Assign & PR Guard
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  assign_on_comment:
+    name: Assign issue when someone says "assign me"
+    if: github.event_name == 'issue_comment'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Assign commenter to issue
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const body = context.payload.comment.body.trim().toLowerCase();
+
+            // Only react to exact "assign me"
+            if (body !== "assign me") {
+              core.info("Comment is not 'assign me'; doing nothing.");
+              return;
+            }
+
+            const issue = context.payload.issue;
+
+            // Ignore comments on PRs (issue object is reused for PRs)
+            if (issue.pull_request) {
+              core.info("Comment is on a PR, ignoring.");
+              return;
+            }
+
+            const username = context.payload.comment.user.login;
+
+            // If already assigned, don't override
+            if (issue.assignees && issue.assignees.length > 0) {
+              core.info("Issue already has assignees, not auto-assigning.");
+              return;
+            }
+
+            // Assign the commenter
+            await github.rest.issues.addAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              assignees: [username],
+            });
+
+            // Add a label to mark it's actively assigned
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              labels: ["candidate-assigned"],
+            });
+
+            // Comment confirming assignment (used as initial assignment timestamp)
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: `Assigned @${username} to this issue as requested ✅`,
+            });
+
+            core.info(`Assigned ${username} to issue #${issue.number} and added label "candidate-assigned".`);
+
+  validate_pr_assignee:
+    name: Validate PR author is assigned to issue
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check PR is from assigned candidate
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = context.payload.pull_request;
+
+            const title = pr.title || "";
+            const body = pr.body || "";
+
+            // 🔍 Look for #123 in BOTH title and body
+            const text = `${title}\n${body}`;
+            const match = text.match(/#(\d+)/);
+
+            if (!match) {
+              core.setFailed(
+                "PR must reference an issue (e.g. `Fixes #123` or `#123`) " +
+                "in the PR title or description. Comments are not scanned."
+              );
+              core.info(`PR title: ${title}`);
+              core.info(`PR body: ${body}`);
+              return;
+            }
+
+            const issue_number = Number(match[1]);
+            core.info(`Detected linked issue: #${issue_number}`);
+
+            // 2. Fetch linked issue
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number,
+            });
+
+            const assignees = (issue.assignees || []).map(a => a.login.toLowerCase());
+            const author = pr.user.login.toLowerCase();
+
+            core.info(`Issue #${issue_number} assignees: ${assignees.join(", ")}`);
+            core.info(`PR author: ${author}`);
+
+            // 3. Ensure PR author is assigned to the issue
+            if (!assignees.includes(author)) {
+              core.setFailed(
+                `You are not assigned to issue #${issue_number}. ` +
+                `Please comment "assign me" on that issue and wait for assignment before opening a PR.`
+              );
+              return;
+            }
+
+            core.info(`Validation passed: PR author is assigned to issue #${issue_number}.`);

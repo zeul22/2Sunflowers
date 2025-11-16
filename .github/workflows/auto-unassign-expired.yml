@@ -1,0 +1,154 @@
+name: Auto Unassign Expired Issues
+
+on:
+  schedule:
+    - cron: "0 0 * * *"   # every day at 00:00 UTC
+  workflow_dispatch:       # allow manual run from Actions tab
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  auto-unassign:
+    name: Unassign issues older than 4 days from assignment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Find and unassign expired issues
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const FOUR_DAYS_MS = 4 * 24 * 60 * 60 * 1000;
+            const now = new Date();
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            core.info("Fetching open issues with label 'candidate-assigned'...");
+
+            const issues = await github.paginate(
+              github.rest.issues.listForRepo,
+              {
+                owner,
+                repo,
+                state: "open",
+                labels: "candidate-assigned",
+                per_page: 100,
+              }
+            );
+
+            core.info(`Found ${issues.length} issues with 'candidate-assigned' label.`);
+
+            for (const issue of issues) {
+              // Skip PRs, we only care about issues
+              if (issue.pull_request) {
+                core.info(`Skipping PR #${issue.number}.`);
+                continue;
+              }
+
+              core.info(`Checking issue #${issue.number}...`);
+
+              const assignees = (issue.assignees || []).map(a => a.login);
+
+              // 1. If no one is assigned, just clean up the label and skip
+              if (assignees.length === 0) {
+                core.info(`Issue #${issue.number} has no assignees, removing 'candidate-assigned' label and skipping.`);
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner,
+                    repo,
+                    issue_number: issue.number,
+                    name: "candidate-assigned",
+                  });
+                } catch (err) {
+                  core.info(`Could not remove label from issue #${issue.number}: ${err.message}`);
+                }
+                continue;
+              }
+
+              core.info(`Issue #${issue.number} current assignees: [${assignees.join(", ")}]`);
+
+              // 2. Fetch comments and find the latest "Assigned @..." comment by a bot
+              const comments = await github.paginate(
+                github.rest.issues.listComments,
+                {
+                  owner,
+                  repo,
+                  issue_number: issue.number,
+                  per_page: 100,
+                }
+              );
+
+              const assignComments = comments.filter((c) => {
+                const isBot = c.user && c.user.type === "Bot"; // usually github-actions[bot]
+                const mentionsAssigned = c.body && c.body.includes("Assigned @");
+                return isBot && mentionsAssigned;
+              });
+
+              if (assignComments.length === 0) {
+                core.info(`No assignment comment found for issue #${issue.number}, skipping expiration logic.`);
+                continue;
+              }
+
+              // Use the most recent assignment comment as the start of the 4-day timer
+              let latestAssign = assignComments[0];
+              for (const c of assignComments) {
+                const curr = new Date(c.created_at);
+                const prev = new Date(latestAssign.created_at);
+                if (curr > prev) latestAssign = c;
+              }
+
+              const assignedAt = new Date(latestAssign.created_at);
+              const ageMs = now - assignedAt;
+              const ageDays = ageMs / (24 * 60 * 60 * 1000);
+
+              core.info(
+                `Issue #${issue.number}: last assignment at ${assignedAt.toISOString()}, ` +
+                `age ${ageDays.toFixed(2)} days.`
+              );
+
+              // 3. If assignment is not older than 4 days, skip
+              if (ageMs <= FOUR_DAYS_MS) {
+                core.info(`Issue #${issue.number} assignment age <= 4 days. Skipping.`);
+                continue;
+              }
+
+              // 4. Assignment older than 4 days: unassign everyone and remove label
+              if (assignees.length > 0) {
+                core.info(`Unassigning [${assignees.join(", ")}] from issue #${issue.number}.`);
+                await github.rest.issues.removeAssignees({
+                  owner,
+                  repo,
+                  issue_number: issue.number,
+                  assignees,
+                });
+              }
+
+              try {
+                core.info(`Removing label 'candidate-assigned' from issue #${issue.number}.`);
+                await github.rest.issues.removeLabel({
+                  owner,
+                  repo,
+                  issue_number: issue.number,
+                  name: "candidate-assigned",
+                });
+              } catch (err) {
+                core.info(`Could not remove label from issue #${issue.number}: ${err.message}`);
+              }
+
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issue.number,
+                body:
+                  "⏰ Assignment expired after 4 days from assignment. " +
+                  "The issue is now free to be picked up again. " +
+                  "Comment `assign me` to claim it.",
+              });
+
+              core.info(`Issue #${issue.number} assignment expired and was cleared.`);
+            }
+
+            core.info("Auto-unassign run completed.");
