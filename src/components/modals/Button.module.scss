@@ -1,0 +1,15 @@
+.btnBox{
+    height: 40px;
+    width: 150px;
+    font-family: sans-serif;
+    border: 1.5px solid;
+    align-items: center;
+    place-content: center;
+    border-radius: 4px;
+
+}
+
+.btnBox:hover{
+    background-color: rgb(255, 166, 0);
+    cursor: pointer;
+}

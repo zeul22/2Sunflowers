@@ -1,6 +1,7 @@
 import React, { Activity, useState } from "react";
 import headerStyle from "./Header.module.scss";
 import NavSmallScreen from "./NavSmallScreen";
+import { Link } from "react-router";
 const Header = () => {
   const [menuClick, setmenuClick] = useState(false)
 
@@ -17,8 +18,8 @@ const Header = () => {
         <h1>Compare</h1>
       </div>
       <div className={`${headerStyle.headerUser}`}>
-        <h1>Login</h1>
-        <h1>SignUp</h1>
+        <Link to="/login">Login</Link>
+        <Link to="/signup">SignUp</Link>
       </div>
 
       <div className={`${headerStyle.smallScreen}`}>

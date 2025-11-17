@@ -1,0 +1,18 @@
+.inputBox{
+    padding-block: 4px;
+    height: 45px;
+}
+input{
+    height: 40px;
+    width: 200px;
+    outline: none;
+    font-family: sans-serif;
+    border: solid 0.1px;
+    border-radius: 4px;
+}
+input:focus{
+    border: solid 1px;
+}
+input::placeholder{
+    text-align: center;
+}

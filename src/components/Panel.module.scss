@@ -1,0 +1,51 @@
+.imgDiv{
+ display: flex;
+ justify-content: center;
+ text-align: center;
+ padding-top: 20px;
+ background-color: black;
+ position: relative;
+
+
+ img{
+    height: 600px;
+ }
+ h1{
+    
+    // left: -10vw;
+ }
+}
+
+.gradientText {
+ background: linear-gradient(
+    90deg,
+    #f7d75c,        /* sunflower yellow */
+    #ffffff,        /* white highlight */
+    #f2a600         /* sunflower orange */
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.textStyle{
+        font-size: 70px;
+        position: relative;
+    font-size: 140px;
+    // color: rgba(248, 237, 222, 0.911);
+    font-family: sans-serif;
+    top: 0px;
+    }
+
+@media screen and (max-width:950px) {
+    .textStyle{
+        font-size: 70px;
+        
+    }
+}
+
+@media screen and (max-width:550px) {
+    .textStyle{
+        font-size: 50px;
+        
+    }
+}
