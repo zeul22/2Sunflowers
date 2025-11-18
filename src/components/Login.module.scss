@@ -1,0 +1,35 @@
+.submitBtn{
+    display: flex;
+    justify-content: center;
+}
+
+.loginSection{
+    display: flex;
+    // place-content: center;
+    justify-content: space-between;
+
+}
+
+.loginBox{
+    place-content: center;
+}
+
+.imgstyling{
+    height: 80vh;
+}
+
+@media screen and (max-width:850px) {
+    .loginSection{
+        flex-direction: column;
+    }
+    .imgstyling{
+        height: 60vh;
+    }
+}
+
+// SignUp
+
+.signupName{
+    display: flex;
+    gap: 12px;
+}

@@ -10,12 +10,11 @@ const Header = () => {
   }
   return (
     <div className={`${headerStyle.headertop}`}>
-      <div>2Sunflowers</div>
+      <Link to={"/"}>2Sunflowers</Link>
       <div className={`${headerStyle.headeroptions}`}>
-        <h1>Home</h1>
-        <h1>About</h1>
-        <h1>Order Flowers</h1>
+        <Link to={"/order"}>Order Flowers</Link>
         <h1>Compare</h1>
+        <Link to={"/about"}>About</Link >
       </div>
       <div className={`${headerStyle.headerUser}`}>
         <Link to="/login">Login</Link>
