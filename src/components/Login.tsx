@@ -2,11 +2,8 @@ import React from "react";
 import Input from "./modals/Input";
 import Button from "./modals/Button";
 import style from "./Login.module.scss";
-interface Format {
-  email: string;
-  password: string;
-}
-const Login = () => {
+
+const Login:React.FC = () => {
   return (
     <div>
       <div className={`${style.loginSection}`}>

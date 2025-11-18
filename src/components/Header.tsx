@@ -2,7 +2,7 @@ import React, { Activity, useState } from "react";
 import headerStyle from "./Header.module.scss";
 import NavSmallScreen from "./NavSmallScreen";
 import { Link } from "react-router";
-const Header = () => {
+const Header:React.FC = () => {
   const [menuClick, setmenuClick] = useState(false)
 
   const  menuOff=()=>{

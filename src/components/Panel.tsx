@@ -1,6 +1,6 @@
 import React from 'react'
 import imgStyle from "./Panel.module.scss"
-const Panel = () => {
+const Panel:React.FC = () => {
   return (
     <>
     <div className={`${imgStyle.imgDiv}`}>

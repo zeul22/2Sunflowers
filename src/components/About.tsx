@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./About.module.scss"
-const About = () => {
+const About:React.FC = () => {
   return (
     <div>
       <h2>About Us</h2>

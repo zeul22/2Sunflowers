@@ -2,7 +2,10 @@ import React from "react";
 import headerStyle from "./Header.module.scss";
 import OutsideClickHandler from "react-outside-click-handler";
 
-const NavSmallScreen = ({closeFn}: { closeFn: () => void }) => {
+interface SmallScreenFunction{
+  closeFn:()=>void,
+}
+const NavSmallScreen:React.FC<SmallScreenFunction> = ({closeFn}: SmallScreenFunction) => {
   return (
     <div>
         <OutsideClickHandler onOutsideClick={closeFn}>

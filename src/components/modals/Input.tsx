@@ -6,7 +6,7 @@ interface FormInput{
     tov:string, //value type
 
 }
-const Input = (props:FormInput) => {
+const Input:React.FC<FormInput> = (props:FormInput) => {
   return (
     <>
         <div className={`${inputStyle.inputBox}`}>

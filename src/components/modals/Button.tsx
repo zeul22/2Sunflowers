@@ -5,7 +5,7 @@ interface Button{
     text:string,
 
 }
-const Button = (props:Button) => {
+const Button:React.FC<Button> = (props:Button) => {
   return (
     <div className={`${Btn.btnBox}`}>{props.text}</div>
   )

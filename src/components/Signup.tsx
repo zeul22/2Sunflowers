@@ -3,7 +3,7 @@ import Input from './modals/Input'
 import Button from './modals/Button'
 import style from './Login.module.scss'
 
-const Signup = () => {
+const Signup:React.FC = () => {
   return (
    <div>
       <div className={`${style.loginSection}`}>
