@@ -1,0 +1,76 @@
+.footer {
+  background: #111;
+  color: #fff;
+  padding: 3rem 1.5rem 1rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.brand {
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    opacity: 0.8;
+  }
+}
+
+.links,
+.social {
+  h4 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin: 0.4rem 0;
+
+      a {
+        color: #fff;
+        text-decoration: none;
+        opacity: 0.75;
+        transition: 0.2s ease;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.bottom {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+  p {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+}
+
+/* Responsive Tweaks */
+@media (max-width: 600px) {
+  .footer {
+    padding: 2rem 1rem;
+  }
+
+  .brand h2 {
+    font-size: 1.5rem;
+  }
+}

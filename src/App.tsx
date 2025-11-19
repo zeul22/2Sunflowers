@@ -2,7 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Header from "./components/Header"
 import Panel from "./components/Panel"
 import { lazy } from "react"
-
+import Footer from "./components/Footer.tsx"
+import style from "./app.module.scss"
 
 function App() {
 
@@ -14,6 +15,8 @@ function App() {
     <>
     <BrowserRouter>
     <Header />
+    <div className={`${style.minHeight}`}>
+
     <Routes>
       <Route path="/" Component={()=>
         <>
@@ -26,6 +29,8 @@ function App() {
       <Route path="about" element={<AboutPage />} />
       <Route path="order" element={<OrderFlowers />} />
     </Routes>
+    </div>
+    <Footer />
     </BrowserRouter>
     </>
   )
