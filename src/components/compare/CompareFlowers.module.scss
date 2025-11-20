@@ -1,0 +1,42 @@
+.gridBox{
+    display: grid;
+    // grid-template-columns: 4;
+    // grid-column: 4;
+    // grid-row: 4;
+    gap: 12px;
+    grid-template-columns: auto auto auto;
+    overflow: auto;
+    max-height: 100vh;
+}
+
+.flowerBox{
+    margin: 4px;
+    h1{
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width:900px) {
+
+    .gridBox{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 12px;
+}
+    
+}
+@media screen and (max-width:610px) {
+
+     .gridBox{
+    display: grid;
+    grid-template-columns: auto;
+    gap: 12px;
+}
+
+    
+    .flowerBox{
+        h1{
+            font-size: 8px;
+        }
+    }
+}
