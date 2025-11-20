@@ -7,6 +7,7 @@
     grid-template-columns: auto auto auto;
     overflow: auto;
     max-height: 100vh;
+    flex: 1;
 }
 
 .flowerBox{
@@ -22,6 +23,7 @@
     display: grid;
     grid-template-columns: auto auto;
     gap: 12px;
+    width: 100%;
 }
     
 }
@@ -31,6 +33,7 @@
     display: grid;
     grid-template-columns: auto;
     gap: 12px;
+    width: 100%;
 }
 
     
