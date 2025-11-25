@@ -13,8 +13,9 @@ const Header:React.FC = () => {
       <Link to={"/"}>2Sunflowers</Link>
       <div className={`${headerStyle.headeroptions}`}>
         <Link to={"/order"}>Order Flowers</Link>
-        <h1>Compare</h1>
+        <Link to={"/compare"}>Compare</Link>
         <Link to={"/about"}>About</Link >
+        <Link to={"/dashboard/sellers"}>Become a Seller</Link >
       </div>
       <div className={`${headerStyle.headerUser}`}>
         <Link to="/login">Login</Link>
