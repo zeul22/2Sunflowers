@@ -1,5 +1,5 @@
 import axios from "axios"
 export const getFlowersData=async ()=>{
-    const response=await axios.get("http://15.206.203.155:8080/data")
+    const response=await axios.get("https://sunflower.krotio.com/data")
     return response.data['flowerData']
 }
