@@ -1,13 +1,15 @@
 import React from 'react'
-import Btn from "./Button.module.scss"
+import Btn from './Button.module.scss'
 
-interface Button{
-    text:string,
-    workFn?:()=>void
+interface Button {
+  text: string
+  workFn?: () => void
 }
-const Button:React.FC<Button> = (props:Button) => {
+const Button: React.FC<Button> = ({ text, workFn }) => {
   return (
-    <div className={`${Btn.btnBox}`} onClick={props.workFn}>{props.text}</div>
+    <button className={Btn.btnBox} onClick={workFn} type="button">
+      {text}
+    </button>
   )
 }
 

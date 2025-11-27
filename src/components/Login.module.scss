@@ -1,36 +1,174 @@
-.submitBtn{
-    display: flex;
-    justify-content: center;
+.authPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  background: var(--page-bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', 'Sora', 'Segoe UI', sans-serif;
 }
 
-.loginSection{
-    display: flex;
-    // place-content: center;
-    justify-content: space-between;
-    
-
+.card {
+  max-width: 1080px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
 }
 
-.loginBox{
-    place-content: center;
+.formSide {
+  padding: 36px;
+  display: grid;
+  gap: 12px;
 }
 
-.imgstyling{
-    height: 80vh;
+.artSide {
+  position: relative;
+  background: linear-gradient(160deg, rgba(246, 213, 138, 0.16), rgba(64, 193, 255, 0.14));
+  display: grid;
+  place-items: center;
+  padding: 24px;
 }
 
-@media screen and (max-width:850px) {
-    .loginSection{
-        flex-direction: column;
-    }
-    .imgstyling{
-        height: 60vh;
-    }
+.glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(90% 100% at 70% 10%, rgba(243, 170, 28, 0.18), transparent),
+    radial-gradient(80% 80% at 30% 70%, rgba(64, 193, 255, 0.12), transparent);
+  filter: blur(10px);
 }
 
-// SignUp
+.artCard {
+  position: relative;
+  z-index: 1;
+  background: rgba(5, 8, 20, 0.75);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  display: grid;
+  gap: 8px;
+  color: var(--text-strong);
+  max-width: 360px;
 
-.signupName{
-    display: flex;
-    gap: 12px;
+  span {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    width: fit-content;
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+    color: var(--muted);
+  }
+}
+
+.metaRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 4px;
+
+  strong {
+    display: block;
+  }
+
+  small {
+    color: var(--muted);
+  }
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  color: #f3aa1c;
+  margin: 0;
+}
+
+h1 {
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.muted {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.form {
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.formExtras {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.link {
+  color: #f7d75c;
+  text-decoration: none;
+}
+
+.switch {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+
+  a {
+    color: #f3aa1c;
+    text-decoration: none;
+  }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media screen and (max-width: 960px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+
+  .artSide {
+    order: -1;
+    min-height: 200px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .formSide {
+    padding: 26px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
 }
