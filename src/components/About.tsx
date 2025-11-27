@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import style from './About.module.scss'
+import sunflowerImg from '../assets/sunflower.png'
 
 const values = [
   { title: 'Heart-led gifting', copy: 'Built from the simple joy of receiving sunflowers and wanting others to feel the same warmth.' },
@@ -46,7 +47,7 @@ const About: React.FC = () => {
         <div className={style.heroVisual}>
           <div className={style.glow} />
           <div className={style.photoCard}>
-            <img src="/src/assets/sunflower.png" alt="Sunflower bouquet" />
+            <img src={sunflowerImg} alt="Sunflower bouquet" />
             <div className={style.photoCaption}>
               <p>“For the ones who love sunflowers, and for the ones they love.”</p>
               <span>~ 2Sunflowers</span>
