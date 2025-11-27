@@ -1,18 +1,33 @@
-.inputBox{
-    padding-block: 4px;
-    height: 45px;
+.inputBox {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  color: #e9f0ff;
+  font-size: 14px;
 }
-input{
-    height: 40px;
-    width: 200px;
-    outline: none;
-    font-family: sans-serif;
-    border: solid 0.1px;
-    border-radius: 4px;
+
+.inputBox span {
+  color: #a6b8d6;
 }
-input:focus{
-    border: solid 1px;
+
+input {
+  height: 46px;
+  width: 100%;
+  outline: none;
+  font-family: 'Space Grotesk', 'Sora', 'Segoe UI', sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #f7f9ff;
+  padding: 0 12px;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
 }
-input::placeholder{
-    text-align: center;
+
+input:focus {
+  border-color: rgba(243, 170, 28, 0.6);
+  box-shadow: 0 0 0 3px rgba(243, 170, 28, 0.2);
+}
+
+input::placeholder {
+  color: #8192ad;
 }

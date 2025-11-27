@@ -3,23 +3,25 @@
   background: var(--page-bg);
   color: var(--text);
   font-family: 'Space Grotesk', 'Sora', 'Segoe UI', sans-serif;
-  display: grid;
-  gap: 24px;
-  padding: 56px 56px 72px;
+  padding: 60px 56px;
 }
 
 .hero {
-  display: flex;
-  justify-content: center;
-//   grid-template-columns: 1.05fr 0.95fr;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
   align-items: start;
-  
 }
 
 .heroCopy {
   display: grid;
   gap: 12px;
+
+  h1 {
+    margin: 0;
+    font-size: 38px;
+    letter-spacing: -0.02em;
+  }
 }
 
 .eyebrow {
@@ -36,45 +38,34 @@
   line-height: 1.6;
 }
 
-.tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  display: flex;
-justify-content: center;
+.meta {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+
+  strong {
+    display: block;
+  }
 
   span {
-    padding: 6px 10px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--panel);
-    color: var(--text);
-    font-size: 13px;
+    color: var(--muted);
   }
 }
 
-.card {
-  border: 1px solid var(--border);
+.formCard {
   background: var(--panel);
+  border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 18px;
+  padding: 20px;
   box-shadow: var(--card-shadow);
+}
+
+.form {
   display: grid;
   gap: 12px;
 }
 
-.cardHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  span {
-    color: var(--muted);
-    font-size: 14px;
-  }
-}
-
-.formGrid {
+.row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
@@ -83,7 +74,7 @@ justify-content: center;
 label {
   display: grid;
   gap: 6px;
-  color: var(--text);
+  color: #e9f0ff;
   font-size: 14px;
 }
 
@@ -106,7 +97,7 @@ textarea {
 }
 
 textarea {
-  min-height: 90px;
+  min-height: 120px;
   resize: vertical;
 }
 
@@ -117,75 +108,25 @@ textarea:focus {
   box-shadow: 0 0 0 3px rgba(243, 170, 28, 0.18);
 }
 
-.full {
-  grid-column: 1 / -1;
-}
-
-.actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.primary,
-.secondary {
+button {
   height: 46px;
   border-radius: 12px;
   border: 1px solid transparent;
+  background: linear-gradient(120deg, #f6d58a, #f3aa1c);
+  color: #0c0f18;
   font-weight: 700;
   letter-spacing: 0.01em;
   cursor: pointer;
-  padding: 0 14px;
-}
-
-.primary {
-  background: linear-gradient(120deg, #f6d58a, #f3aa1c);
-  color: #0c0f18;
   box-shadow: 0 14px 32px rgba(243, 170, 28, 0.36);
+  transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
-.secondary {
-  background: var(--panel);
-  border-color: var(--border);
-  color: var(--text);
-}
-
-.primary:hover {
+button:hover {
   transform: translateY(-1px);
   box-shadow: 0 16px 38px rgba(243, 170, 28, 0.42);
 }
 
-.benefits {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
-}
-
-.benefitCard {
-  border: 1px solid var(--border);
-  background: var(--panel);
-  border-radius: 14px;
-  padding: 14px;
-  display: grid;
-  gap: 6px;
-  box-shadow: var(--card-shadow);
-
-  h3 {
-    margin: 0;
-  }
-
-  p {
-    margin: 0;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-}
-
 @media screen and (max-width: 960px) {
-  .page {
-    padding: 40px 24px 56px;
-  }
-
   .hero {
     grid-template-columns: 1fr;
   }
@@ -193,10 +134,10 @@ textarea:focus {
 
 @media screen and (max-width: 640px) {
   .page {
-    padding: 32px 20px 48px;
+    padding: 44px 20px;
   }
 
-  .formGrid {
+  .row {
     grid-template-columns: 1fr;
   }
 }

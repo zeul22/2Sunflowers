@@ -1,0 +1,32 @@
+.filterPanel {
+  display: grid;
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  color: var(--text);
+  font-size: 14px;
+
+  label {
+    color: var(--text);
+  }
+
+  select {
+    height: 42px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text);
+    padding: 0 12px;
+    font-family: 'Space Grotesk', 'Sora', 'Segoe UI', sans-serif;
+    outline: none;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  select:focus {
+    border-color: rgba(243, 170, 28, 0.6);
+    box-shadow: 0 0 0 3px rgba(243, 170, 28, 0.2);
+  }
+}

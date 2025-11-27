@@ -1,18 +1,18 @@
 import React from 'react'
-import inputStyle from "./Input.module.scss"
-interface FormInput{
-    name:string,
-    label:string,
-    tov:string, //value type
+import inputStyle from './Input.module.scss'
 
+interface FormInput {
+  name: string
+  label: string
+  tov: string // value type
 }
-const Input:React.FC<FormInput> = (props:FormInput) => {
+
+const Input: React.FC<FormInput> = ({ label, tov }) => {
   return (
-    <>
-        <div className={`${inputStyle.inputBox}`}>
-            <input type={props.tov} placeholder={props.label} />
-        </div>
-    </>
+    <label className={inputStyle.inputBox}>
+      <span>{label}</span>
+      <input type={tov} placeholder={label} />
+    </label>
   )
 }
 

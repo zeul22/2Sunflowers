@@ -1,15 +1,19 @@
-.btnBox{
-    height: 35px;
-    width: 200px;
-    font-family: sans-serif;
-    border: 1.5px solid;
-    align-items: center;
-    place-content: center;
-    border-radius: 4px;
-
+.btnBox {
+  height: 46px;
+  width: 100%;
+  font-family: 'Space Grotesk', 'Sora', 'Segoe UI', sans-serif;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #f6d58a, #f3aa1c);
+  color: #0c0f18;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: 0 14px 32px rgba(243, 170, 28, 0.36);
+  transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
-.btnBox:hover{
-    background-color: rgb(255, 166, 0);
-    cursor: pointer;
+.btnBox:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 38px rgba(243, 170, 28, 0.42);
 }
